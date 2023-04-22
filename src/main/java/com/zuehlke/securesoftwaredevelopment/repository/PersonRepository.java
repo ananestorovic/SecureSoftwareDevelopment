@@ -34,35 +34,39 @@ public class PersonRepository {
                 personList.add(createPersonFromResultSet(rs));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error("Error: Fetching persons failed.");
         }
         return personList;
     }
 
     public List<Person> search(String searchTerm) throws SQLException {
         List<Person> personList = new ArrayList<>();
-        String query = "SELECT id, firstName, lastName, email FROM persons WHERE UPPER(firstName) like UPPER('%" + searchTerm + "%')" +
-                " OR UPPER(lastName) like UPPER('%" + searchTerm + "%')";
+        String query = "SELECT id, firstName, lastName, email FROM persons WHERE UPPER(firstName) like UPPER('%?%')" +
+                " OR UPPER(lastName) like UPPER('%?%')";
         try (Connection connection = dataSource.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet rs = statement.executeQuery(query)) {
-            while (rs.next()) {
-                personList.add(createPersonFromResultSet(rs));
+             PreparedStatement preparedStatement = connection.prepareStatement(query)){
+            preparedStatement.setString(1, searchTerm);
+            try( ResultSet rs = preparedStatement.executeQuery()){
+                while (rs.next()) {
+                    personList.add(createPersonFromResultSet(rs));
+                }
             }
         }
         return personList;
     }
 
     public Person get(String personId) {
-        String query = "SELECT id, firstName, lastName, email FROM persons WHERE id = " + personId;
+        String query = "SELECT id, firstName, lastName, email FROM persons WHERE id = ?";
         try (Connection connection = dataSource.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet rs = statement.executeQuery(query)) {
-            while (rs.next()) {
-                return createPersonFromResultSet(rs);
+             PreparedStatement preparedStatement = connection.prepareStatement(query)){
+            preparedStatement.setString(1, personId);
+            try( ResultSet rs = preparedStatement.executeQuery()) {
+                while (rs.next()) {
+                    return createPersonFromResultSet(rs);
+                }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error("Error: Getting person failed.");
         }
 
         return null;
@@ -75,7 +79,7 @@ public class PersonRepository {
         ) {
             statement.executeUpdate(query);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error("Error: Deleting person failed.");
         }
     }
 
@@ -89,7 +93,7 @@ public class PersonRepository {
 
     public void update(Person personUpdate) {
         Person personFromDb = get(personUpdate.getId());
-        String query = "UPDATE persons SET firstName = ?, lastName = '" + personUpdate.getLastName() + "', email = ? where id = " + personUpdate.getId();
+        String query = "UPDATE persons SET firstName = ?, lastName = ?, email = ? where id = ?";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(query);
@@ -97,10 +101,12 @@ public class PersonRepository {
             String firstName = personUpdate.getFirstName() != null ? personUpdate.getFirstName() : personFromDb.getFirstName();
             String email = personUpdate.getEmail() != null ? personUpdate.getEmail() : personFromDb.getEmail();
             statement.setString(1, firstName);
-            statement.setString(2, email);
+            statement.setString(2, personUpdate.getLastName());
+            statement.setString(3, email);
+            statement.setString(4, personUpdate.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error("Error: Updating person failed.");
         }
     }
 }

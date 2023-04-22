@@ -33,34 +33,38 @@ public class RatingRepository {
              ResultSet rs = statement.executeQuery(query)
         ) {
             if (rs.next()) {
-                PreparedStatement preparedStatement = connection.prepareStatement(query2);
-                preparedStatement.setInt(1, rating.getRating());
-                preparedStatement.setInt(2, rating.getMovieId());
-                preparedStatement.setInt(3, rating.getUserId());
-                preparedStatement.executeUpdate();
+                try(PreparedStatement preparedStatement = connection.prepareStatement(query2)){
+                    preparedStatement.setInt(1, rating.getRating());
+                    preparedStatement.setInt(2, rating.getMovieId());
+                    preparedStatement.setInt(3, rating.getUserId());
+                    preparedStatement.executeUpdate();
+                }
             } else {
-                PreparedStatement preparedStatement = connection.prepareStatement(query3);
-                preparedStatement.setInt(1, rating.getMovieId());
-                preparedStatement.setInt(2, rating.getUserId());
-                preparedStatement.setInt(3, rating.getRating());
-                preparedStatement.executeUpdate();
+                try(PreparedStatement preparedStatement = connection.prepareStatement(query3)){
+                    preparedStatement.setInt(1, rating.getMovieId());
+                    preparedStatement.setInt(2, rating.getUserId());
+                    preparedStatement.setInt(3, rating.getRating());
+                    preparedStatement.executeUpdate();
+                }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error("Error: Updating rating for movie failed.");
         }
     }
 
     public List<Rating> getAll(String movieId) {
         List<Rating> ratingList = new ArrayList<>();
-        String query = "SELECT movieId, userId, rating FROM ratings WHERE movieId = " + movieId;
+        String query = "SELECT movieId, userId, rating FROM ratings WHERE movieId = ?";
         try (Connection connection = dataSource.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet rs = statement.executeQuery(query)) {
-            while (rs.next()) {
-                ratingList.add(new Rating(rs.getInt(1), rs.getInt(2), rs.getInt(3)));
+             PreparedStatement preparedStatement = connection.prepareStatement(query)){
+            preparedStatement.setString(1, movieId);
+            try( ResultSet rs = preparedStatement.executeQuery()) {
+                while (rs.next()) {
+                    ratingList.add(new Rating(rs.getInt(1), rs.getInt(2), rs.getInt(3)));
+                }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error("Error: Fetching all ratings failed.");
         }
         return ratingList;
     }

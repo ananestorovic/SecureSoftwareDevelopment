@@ -21,18 +21,21 @@ public class HashedUserRepository {
     }
 
     public HashedUser findUser(String username) {
-        String sqlQuery = "select passwordHash, salt, totpKey from hashedUsers where username = '" + username + "'";
+        String sqlQuery = "select passwordHash, salt, totpKey from hashedUsers where username = ?";
         try (Connection connection = dataSource.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet rs = statement.executeQuery(sqlQuery)) {
-            if (rs.next()) {
-                String passwordHash = rs.getString(1);
-                String salt = rs.getString(2);
-                String totpKey = rs.getString(3);
-                return new HashedUser(username, passwordHash, salt, totpKey);
+             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+             ) {
+            preparedStatement.setString(1, username);
+            try(ResultSet rs = preparedStatement.executeQuery()){
+                if (rs.next()) {
+                    String passwordHash = rs.getString(1);
+                    String salt = rs.getString(2);
+                    String totpKey = rs.getString(3);
+                    return new HashedUser(username, passwordHash, salt, totpKey);
+            }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error("Error: Trying to find user failed.");
         }
         return null;
     }
@@ -46,7 +49,7 @@ public class HashedUserRepository {
 
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error("Error: Updating TOTP key for user failed.");
         }
     }
 }

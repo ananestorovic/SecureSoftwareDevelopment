@@ -37,7 +37,7 @@ public class MovieRepository {
                 movieList.add(movie);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error("Error: Fetching all existing movies failed.");
         }
         return movieList;
     }
@@ -47,13 +47,15 @@ public class MovieRepository {
         String query = "SELECT DISTINCT m.id, m.title, m.description FROM movies m, movies_to_genres mg, genres g" +
                 " WHERE m.id = mg.movieId" +
                 " AND mg.genreId = g.id" +
-                " AND (UPPER(m.title) like UPPER('%" + searchTerm + "%')" +
-                " OR UPPER(g.name) like UPPER('%" + searchTerm + "%'))";
+                " AND (UPPER(m.title) like UPPER('%?%')" +
+                " OR UPPER(g.name) like UPPER('%?%'))";
         try (Connection connection = dataSource.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet rs = statement.executeQuery(query)) {
-            while (rs.next()) {
-                movieList.add(createMovieFromResultSet(rs));
+             PreparedStatement preparedStatement = connection.prepareStatement(query);) {
+            preparedStatement.setString(1, searchTerm);
+            try(ResultSet rs = preparedStatement.executeQuery()){
+                while (rs.next()) {
+                    movieList.add(createMovieFromResultSet(rs));
+            }
             }
         }
         return movieList;
@@ -76,14 +78,14 @@ public class MovieRepository {
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
                         }
-                    }).findFirst().get();
+                    }).findFirst().orElse(null);
                     movieGenres.add(genre);
                 }
                 movie.setGenres(movieGenres);
                 return movie;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error("Error: Fetching movie failed.");
         }
 
         return null;
@@ -110,12 +112,12 @@ public class MovieRepository {
                         statement2.setInt(2, genre.getId());
                         statement2.executeUpdate();
                     } catch (SQLException e) {
-                        e.printStackTrace();
+                        LOG.error("Error: Inserting new genres failed.");
                     }
                 });
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error("Error: Inserting new movie with title failed.");
         }
         return id;
     }
@@ -133,7 +135,7 @@ public class MovieRepository {
             statement.executeUpdate(query3);
             statement.executeUpdate(query4);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error("Error: Deleting movie failed.");
         }
     }
 

@@ -23,28 +23,35 @@ public class CommentRepository {
     }
 
     public void create(Comment comment) {
-        String query = "insert into comments(movieId, userId, comment) values (" + comment.getMovieId() + ", " + comment.getUserId() + ", '" + comment.getComment() + "')";
+        String query = "insert into comments(movieId, userId, comment) values ( ? , ? , ? )";
 
         try (Connection connection = dataSource.getConnection();
-             Statement statement = connection.createStatement();
+             PreparedStatement preparedStatement = connection.prepareStatement(query);
         ) {
-            statement.execute(query);
+            preparedStatement.setInt(1, comment.getMovieId());
+            preparedStatement.setInt(2, comment.getUserId());
+            preparedStatement.setString(3, comment.getComment());
+            preparedStatement.execute(query);
+
         } catch (SQLException e) {
-            e.printStackTrace();
+           LOG.error("Error: Comment creation failed.");
         }
     }
 
     public List<Comment> getAll(String movieId) {
         List<Comment> commentList = new ArrayList<>();
-        String query = "SELECT movieId, userId, comment FROM comments WHERE movieId = " + movieId;
+        String query = "SELECT movieId, userId, comment FROM comments WHERE movieId = ?";
         try (Connection connection = dataSource.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet rs = statement.executeQuery(query)) {
-            while (rs.next()) {
-                commentList.add(new Comment(rs.getInt(1), rs.getInt(2), rs.getString(3)));
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, movieId);
+            try( ResultSet rs = preparedStatement.executeQuery();) {
+                while (rs.next()) {
+                    commentList.add(new Comment(rs.getInt(1), rs.getInt(2), rs.getString(3)));
+                }
             }
+
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error("Error: Fetching comments failed.");
         }
         return commentList;
     }

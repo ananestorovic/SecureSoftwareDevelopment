@@ -6,10 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 @Repository
 public class UserRepository {
@@ -23,30 +20,35 @@ public class UserRepository {
     }
 
     public User findUser(String username) {
-        String query = "SELECT id, username, password FROM users WHERE username='" + username + "'";
+        String query = "SELECT id, username, password FROM users WHERE username= ?";
         try (Connection connection = dataSource.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet rs = statement.executeQuery(query)) {
-            if (rs.next()) {
-                int id = rs.getInt(1);
-                String username1 = rs.getString(2);
-                String password = rs.getString(3);
-                return new User(id, username1, password);
+             PreparedStatement preparedStatement = connection.prepareStatement(query)){
+            preparedStatement.setString(1, username);
+            try( ResultSet rs = preparedStatement.executeQuery()) {
+                while (rs.next()) {
+                    int id = rs.getInt(1);
+                    String username1 = rs.getString(2);
+                    String password = rs.getString(3);
+                    return new User(id, username1, password);
+                }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error("Error: Finding user by username failed.");
         }
         return null;
     }
 
     public boolean validCredentials(String username, String password) {
-        String query = "SELECT username FROM users WHERE username='" + username + "' AND password='" + password + "'";
+        String query = "SELECT username FROM users WHERE username= ? AND password= ?";
         try (Connection connection = dataSource.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet rs = statement.executeQuery(query)) {
-            return rs.next();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)){
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, password);
+            try (ResultSet rs = preparedStatement.executeQuery()) {
+                return rs.next();
+            }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error("Error: Validating credentials for user failed.");
         }
         return false;
     }
@@ -58,7 +60,7 @@ public class UserRepository {
         ) {
             statement.executeUpdate(query);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.error("Error: Deleting user failed.");
         }
     }
 }
