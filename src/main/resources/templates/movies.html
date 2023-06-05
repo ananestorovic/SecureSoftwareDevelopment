@@ -59,7 +59,7 @@
       tds[0].textContent = movie.id;
       tds[1].textContent = movie.title;
       tds[2].textContent = movie.description;
-      tds[3].innerHTML = `<a href="/movies?id=${movie.id}">Details</a>`;
+      tds[3].textContent = `<a href="/movies?id=${movie.id}">Details</a>`;
 
       const tbody = document.querySelector('tbody');
       tbody.appendChild(row);
@@ -74,7 +74,7 @@
 
     function updateSearchTerm(searchQuery) {
       const searchTerm = document.getElementById('searchTerm');
-      searchTerm.innerHTML = searchQuery;
+      searchTerm.textContent = searchQuery;
       searchTerm.parentElement.classList.remove('invisible');
     }
 
