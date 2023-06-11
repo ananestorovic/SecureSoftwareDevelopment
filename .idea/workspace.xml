@@ -4,8 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7426b0dd-4e66-4785-9e7e-e97d54a4a898" name="Changes" comment="innerHTML is replaced by textContext and th:utext is replaced by th:text">
+    <list default="true" id="7426b0dd-4e66-4785-9e7e-e97d54a4a898" name="Changes" comment="Use textContent instead of innerHTML and use th:text instead th:utext to prevent XSS attacks.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zuehlke/securesoftwaredevelopment/repository/CommentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zuehlke/securesoftwaredevelopment/repository/CommentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zuehlke/securesoftwaredevelopment/repository/PersonRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zuehlke/securesoftwaredevelopment/repository/PersonRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zuehlke/securesoftwaredevelopment/repository/CommentRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zuehlke/securesoftwaredevelopment/repository/CommentRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zuehlke/securesoftwaredevelopment/repository/PersonRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zuehlke/securesoftwaredevelopment/repository/PersonRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/movie.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/movie.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/movies.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/movies.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/persons.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/persons.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +32,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -58,6 +66,7 @@
     "SONARLINT_PRECOMMIT_ANALYSIS": "true",
     "WebServerToolWindowFactoryState": "false",
     "last_opened_file_path": "C:/faks projekti/rbs2022-2023",
+    "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "preferences.pluginManager",
     "spring.configuration.checksum": "334a9f90e952fb1dfd46c8b25662898f"
   }
@@ -126,6 +135,7 @@
       <workItem from="1680734524630" duration="4741000" />
       <workItem from="1681067169428" duration="1796000" />
       <workItem from="1681906802682" duration="1199000" />
+      <workItem from="1685975743411" duration="635000" />
     </task>
     <task id="LOCAL-00001" summary="Init commit">
       <created>1670698325007</created>
@@ -141,12 +151,12 @@
       <option name="project" value="LOCAL" />
       <updated>1670775853780</updated>
     </task>
-    <task id="LOCAL-00003" summary="innerHTML is replaced by textContext and th:utext is replaced by th:text">
-      <created>1685968370680</created>
+    <task id="LOCAL-00003" summary="Use textContent instead of innerHTML and use th:text instead th:utext to prevent XSS attacks.">
+      <created>1685972457974</created>
       <option name="number" value="00003" />
       <option name="presentableId" value="LOCAL-00003" />
       <option name="project" value="LOCAL" />
-      <updated>1685968370680</updated>
+      <updated>1685972457974</updated>
     </task>
     <option name="localTasksCounter" value="4" />
     <servers />
@@ -170,24 +180,8 @@
     <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="Init commit" />
     <MESSAGE value="Attack!" />
-    <MESSAGE value="innerHTML is replaced by textContext and th:utext is replaced by th:text" />
-    <option name="LAST_COMMIT_MESSAGE" value="innerHTML is replaced by textContext and th:utext is replaced by th:text" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/zuehlke/securesoftwaredevelopment/config/DatabaseAuthenticationProvider.java</url>
-          <line>51</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/zuehlke/securesoftwaredevelopment/repository/UserRepository.java</url>
-          <line>22</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Use textContent instead of innerHTML and use th:text instead th:utext to prevent XSS attacks." />
+    <option name="LAST_COMMIT_MESSAGE" value="Use textContent instead of innerHTML and use th:text instead th:utext to prevent XSS attacks." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

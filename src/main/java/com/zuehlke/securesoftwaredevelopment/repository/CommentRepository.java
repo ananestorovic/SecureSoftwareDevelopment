@@ -31,7 +31,7 @@ public class CommentRepository {
             preparedStatement.setInt(1, comment.getMovieId());
             preparedStatement.setInt(2, comment.getUserId());
             preparedStatement.setString(3, comment.getComment());
-            preparedStatement.execute(query);
+            preparedStatement.execute();
 
         } catch (SQLException e) {
            LOG.error("Error: Comment creation failed.");

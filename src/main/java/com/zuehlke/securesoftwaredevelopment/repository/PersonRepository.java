@@ -41,14 +41,16 @@ public class PersonRepository {
 
     public List<Person> search(String searchTerm) throws SQLException {
         List<Person> personList = new ArrayList<>();
-        String query = "SELECT id, firstName, lastName, email FROM persons WHERE UPPER(firstName) like UPPER('%?%')" +
-                " OR UPPER(lastName) like UPPER('%?%')";
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)){
-            preparedStatement.setString(1, searchTerm);
-            try( ResultSet rs = preparedStatement.executeQuery()){
-                while (rs.next()) {
-                    personList.add(createPersonFromResultSet(rs));
+        if (searchTerm != null && !searchTerm.isEmpty()) {
+            String query = "SELECT id, firstName, lastName, email FROM persons WHERE UPPER(firstName) like UPPER('%?%')" +
+                    " OR UPPER(lastName) like UPPER('%?%')";
+            try (Connection connection = dataSource.getConnection();
+                 PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+                preparedStatement.setString(1, searchTerm);
+                try (ResultSet rs = preparedStatement.executeQuery()) {
+                    while (rs.next()) {
+                        personList.add(createPersonFromResultSet(rs));
+                    }
                 }
             }
         }
