@@ -4,11 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7426b0dd-4e66-4785-9e7e-e97d54a4a898" name="Changes" comment="Implemented exploit function for CSRF attack">
+    <list default="true" id="7426b0dd-4e66-4785-9e7e-e97d54a4a898" name="Changes" comment="Successfully implemented protection against CSRF attacks">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zuehlke/securesoftwaredevelopment/controller/PersonsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zuehlke/securesoftwaredevelopment/controller/PersonsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/person.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/person.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/zuehlke/securesoftwaredevelopment/controller/PersonsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zuehlke/securesoftwaredevelopment/controller/PersonsController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zuehlke/securesoftwaredevelopment/controller/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zuehlke/securesoftwaredevelopment/controller/CommentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zuehlke/securesoftwaredevelopment/controller/MoviesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zuehlke/securesoftwaredevelopment/controller/MoviesController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/movie.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/movie.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/movies.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/movies.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/person.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/person.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,22 +54,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/faks projekti/rbs2022-2023",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "spring.configuration.checksum": "334a9f90e952fb1dfd46c8b25662898f"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/faks projekti/rbs2022-2023&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;334a9f90e952fb1dfd46c8b25662898f&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Spring Boot.SecureSoftwareDevelopmentApplication">
     <configuration name="SonarQube Analysis" type="MavenRunConfiguration" factoryName="Maven">
       <MavenSettings>
@@ -132,6 +135,7 @@
       <workItem from="1681067169428" duration="1796000" />
       <workItem from="1681906802682" duration="1199000" />
       <workItem from="1685975743411" duration="635000" />
+      <workItem from="1687259664949" duration="4020000" />
     </task>
     <task id="LOCAL-00001" summary="Init commit">
       <created>1670698325007</created>
@@ -168,7 +172,14 @@
       <option name="project" value="LOCAL" />
       <updated>1687116669136</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Successfully implemented protection against CSRF attacks">
+      <created>1687121241181</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1687121241181</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -193,7 +204,8 @@
     <MESSAGE value="Use textContent instead of innerHTML and use th:text instead th:utext to prevent XSS attacks." />
     <MESSAGE value="Successfully implemented protection against SQLi and XSS attacks" />
     <MESSAGE value="Implemented exploit function for CSRF attack" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented exploit function for CSRF attack" />
+    <MESSAGE value="Successfully implemented protection against CSRF attacks" />
+    <option name="LAST_COMMIT_MESSAGE" value="Successfully implemented protection against CSRF attacks" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
