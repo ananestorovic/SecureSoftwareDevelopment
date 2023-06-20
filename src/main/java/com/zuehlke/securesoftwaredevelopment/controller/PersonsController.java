@@ -44,6 +44,7 @@ public class PersonsController {
     }
 
     @GetMapping("/myprofile")
+    @PreAuthorize("hasAuthority('VIEW_MY_PROFILE')")
     public String self(Model model, Authentication authentication) {
         User user = (User) authentication.getPrincipal();
         model.addAttribute("person", personRepository.get("" + user.getId()));
