@@ -4,13 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7426b0dd-4e66-4785-9e7e-e97d54a4a898" name="Changes" comment="Implemented VIEW_PERSON permission">
+    <list default="true" id="7426b0dd-4e66-4785-9e7e-e97d54a4a898" name="Changes" comment="Implemented VIEW_MY_PROFILE permission">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zuehlke/securesoftwaredevelopment/controller/PersonsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zuehlke/securesoftwaredevelopment/controller/PersonsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/layout.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zuehlke/securesoftwaredevelopment/controller/RatingsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zuehlke/securesoftwaredevelopment/controller/RatingsController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/zuehlke/securesoftwaredevelopment/controller/PersonsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zuehlke/securesoftwaredevelopment/controller/PersonsController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/templates/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/layout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/persons.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/persons.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,7 +132,7 @@
       <workItem from="1681067169428" duration="1796000" />
       <workItem from="1681906802682" duration="1199000" />
       <workItem from="1685975743411" duration="635000" />
-      <workItem from="1687259664949" duration="10105000" />
+      <workItem from="1687259664949" duration="10902000" />
     </task>
     <task id="LOCAL-00001" summary="Init commit">
       <created>1670698325007</created>
@@ -206,7 +204,14 @@
       <option name="project" value="LOCAL" />
       <updated>1687273468688</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Implemented VIEW_MY_PROFILE permission">
+      <created>1687274398479</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1687274398479</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -236,7 +241,8 @@
     <MESSAGE value="Implemented VIEW_MOVIES_LIST permission" />
     <MESSAGE value="Implemented VIEW_PERSONS_LIST permission" />
     <MESSAGE value="Implemented VIEW_PERSON permission" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented VIEW_PERSON permission" />
+    <MESSAGE value="Implemented VIEW_MY_PROFILE permission" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented VIEW_MY_PROFILE permission" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
