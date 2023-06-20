@@ -35,6 +35,7 @@ public class PersonsController {
     }
 
     @GetMapping("/persons/{id}")
+    @PreAuthorize("hasAuthority('VIEW_PERSON')")
     public String person(@PathVariable int id, Model model, HttpSession session) {
         String csrfToken = session.getAttribute("CSRF_TOKEN").toString();
         model.addAttribute("CSRF_TOKEN", csrfToken);

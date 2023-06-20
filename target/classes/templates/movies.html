@@ -22,7 +22,7 @@
     <p class="invisible">You searched for: <span id="searchTerm"></span></p>
     <p class="invisible text-danger" id="movieSearchErrorMessage">Sorry, we are facing some problems! Please try again
       later.</p>
-    <table class="table">
+    <table class="table" sec:authorize="hasAuthority('VIEW_MOVIES_LIST')">
       <thead>
       <tr>
         <th scope="col">#</th>
