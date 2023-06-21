@@ -47,11 +47,12 @@ public class MovieRepository {
         String query = "SELECT DISTINCT m.id, m.title, m.description FROM movies m, movies_to_genres mg, genres g" +
                 " WHERE m.id = mg.movieId" +
                 " AND mg.genreId = g.id" +
-                " AND (UPPER(m.title) like UPPER('%?%')" +
-                " OR UPPER(g.name) like UPPER('%?%'))";
+                " AND (UPPER(m.title) like UPPER(CONCAT( '%',?,'%'))" +
+                " OR UPPER(g.name) like UPPER(CONCAT( '%',?,'%')))";
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query);) {
             preparedStatement.setString(1, searchTerm);
+            preparedStatement.setString(2, searchTerm);
             try(ResultSet rs = preparedStatement.executeQuery()){
                 while (rs.next()) {
                     movieList.add(createMovieFromResultSet(rs));

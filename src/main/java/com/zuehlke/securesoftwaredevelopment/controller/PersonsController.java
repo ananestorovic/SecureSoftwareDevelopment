@@ -1,6 +1,7 @@
 package com.zuehlke.securesoftwaredevelopment.controller;
 
 import com.zuehlke.securesoftwaredevelopment.config.AuditLogger;
+import com.zuehlke.securesoftwaredevelopment.config.SecurityUtil;
 import com.zuehlke.securesoftwaredevelopment.domain.Person;
 import com.zuehlke.securesoftwaredevelopment.domain.User;
 import com.zuehlke.securesoftwaredevelopment.repository.PersonRepository;
@@ -35,8 +36,14 @@ public class PersonsController {
     }
 
     @GetMapping("/persons/{id}")
-    @PreAuthorize("hasAuthority('VIEW_PERSON')")
-    public String person(@PathVariable int id, Model model, HttpSession session) {
+    public String person(@PathVariable int id, Model model, HttpSession session) throws AccessDeniedException {
+
+        if(!SecurityUtil.hasPermission("VIEW_PERSON")){
+            int currentUserId = SecurityUtil.getCurrentUser().getId();
+            if(currentUserId != id){
+                throw new AccessDeniedException("Forbidden");
+            }
+        }
         String csrfToken = session.getAttribute("CSRF_TOKEN").toString();
         model.addAttribute("CSRF_TOKEN", csrfToken);
         model.addAttribute("person", personRepository.get("" + id));
@@ -45,14 +52,25 @@ public class PersonsController {
 
     @GetMapping("/myprofile")
     @PreAuthorize("hasAuthority('VIEW_MY_PROFILE')")
-    public String self(Model model, Authentication authentication) {
+    public String self(Model model, Authentication authentication, HttpSession session) {
         User user = (User) authentication.getPrincipal();
         model.addAttribute("person", personRepository.get("" + user.getId()));
+
+        String csrfToken = session.getAttribute("CSRF_TOKEN").toString();
+        model.addAttribute("CSRF_TOKEN", csrfToken);
         return "person";
     }
 
     @DeleteMapping("/persons/{id}")
-    public ResponseEntity<Void> person(@PathVariable int id) {
+    public ResponseEntity<Void> person(@PathVariable int id) throws AccessDeniedException {
+
+        if(!SecurityUtil.hasPermission("UPDATE_PERSON")){
+            int currentUserId = SecurityUtil.getCurrentUser().getId();
+            if(currentUserId != id){
+                throw new AccessDeniedException("Forbidden");
+            }
+        }
+
         personRepository.delete(id);
         userRepository.delete(id);
 
@@ -65,6 +83,14 @@ public class PersonsController {
         String csrf = session.getAttribute("CSRF_TOKEN").toString();
         if (!csrf.equals(csrfToken)) {
             throw new AccessDeniedException("Forbidden");
+        }
+
+        if(!SecurityUtil.hasPermission("UPDATE_PERSON")){
+            int currentUserId = SecurityUtil.getCurrentUser().getId();
+            int personId = Integer.parseInt(person.getId());
+            if(currentUserId != personId){
+                throw new AccessDeniedException("Forbidden");
+            }
         }
         personRepository.update(person);
         return "redirect:/persons/" + person.getId();

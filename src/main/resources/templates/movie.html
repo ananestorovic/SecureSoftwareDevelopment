@@ -69,25 +69,29 @@
     const movieId = [[${movie.id}]];
   </script>
 
-  <script>
-    window.addEventListener('load', function () {
+    <script sec:authorize="hasAuthority('RATE_MOVIE')">
+        window.addEventListener('load', function () {
 
-        document.getElementById("rateMovie").addEventListener("click", function () {
-            const rating = document.querySelector('input[name="rating"]:checked').value;
-            fetch('/ratings', {
-                method: 'POST',
-                body: JSON.stringify({
-                    movieId: movieId,
-                    rating: rating
-                }),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }).then(function () {
-                console.log(window.location)
-                window.location.reload();
+            document.getElementById("rateMovie").addEventListener("click", function () {
+                const rating = document.querySelector('input[name="rating"]:checked').value;
+                fetch('/ratings', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        movieId: movieId,
+                        rating: rating
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(function () {
+                    console.log(window.location)
+                    window.location.reload();
+                });
             });
         });
+    </script>
+  <script sec:authorize="hasAuthority('ADD_COMMENT')">
+    window.addEventListener('load', function () {
 
       document.getElementById("createComment").addEventListener("click", function () {
         const comment = document.getElementById("addComment").value;
