@@ -1,5 +1,6 @@
 package com.zuehlke.securesoftwaredevelopment.repository;
 
+import com.zuehlke.securesoftwaredevelopment.config.AuditLogger;
 import com.zuehlke.securesoftwaredevelopment.domain.Comment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,7 @@ import java.util.List;
 public class CommentRepository {
 
     private static final Logger LOG = LoggerFactory.getLogger(CommentRepository.class);
+    private static final AuditLogger auditLogger = AuditLogger.getAuditLogger(CommentRepository.class);
 
 
     private DataSource dataSource;
@@ -32,6 +34,8 @@ public class CommentRepository {
             preparedStatement.setInt(2, comment.getUserId());
             preparedStatement.setString(3, comment.getComment());
             preparedStatement.executeUpdate();
+
+            auditLogger.audit("Created comment for movie with ID " + comment.getMovieId() + ".");
 
         } catch (SQLException e) {
             LOG.warn("Failed to create comment for movie " + comment.getMovieId() + " and user " + comment.getUserId() + ".", e);

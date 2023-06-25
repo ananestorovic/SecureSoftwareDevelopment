@@ -1,5 +1,6 @@
 package com.zuehlke.securesoftwaredevelopment.repository;
 
+import com.zuehlke.securesoftwaredevelopment.config.AuditLogger;
 import com.zuehlke.securesoftwaredevelopment.domain.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,8 @@ import java.sql.*;
 public class UserRepository {
 
     private static final Logger LOG = LoggerFactory.getLogger(UserRepository.class);
+
+    private static final AuditLogger auditLogger = AuditLogger.getAuditLogger(UserRepository.class);
 
     private DataSource dataSource;
 
@@ -59,6 +62,7 @@ public class UserRepository {
              Statement statement = connection.createStatement();
         ) {
             statement.executeUpdate(query);
+            auditLogger.audit("Deleted user with userId " + userId + ".");
         } catch (SQLException e) {
             LOG.warn("Failed to delete user with ID " + userId + ".", e);
         }

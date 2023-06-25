@@ -1,6 +1,7 @@
 package com.zuehlke.securesoftwaredevelopment.repository;
 
-import com.zuehlke.securesoftwaredevelopment.domain.Comment;
+import com.zuehlke.securesoftwaredevelopment.config.AuditLogger;
+import com.zuehlke.securesoftwaredevelopment.config.Entity;
 import com.zuehlke.securesoftwaredevelopment.domain.Rating;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,7 @@ public class RatingRepository {
 
     private static final Logger LOG = LoggerFactory.getLogger(RatingRepository.class);
 
+    private static final AuditLogger auditLogger = AuditLogger.getAuditLogger(RatingRepository.class);
 
     private DataSource dataSource;
 
@@ -24,20 +26,28 @@ public class RatingRepository {
     }
 
     public void createOrUpdate(Rating rating) {
-        String query = "SELECT movieId, userId, rating FROM ratings WHERE movieId = " + rating.getMovieId() + " AND userID = " + rating.getUserId();
+        String query1 = "SELECT movieId, userId, rating FROM ratings WHERE movieId = " + rating.getMovieId() + " AND userID = " + rating.getUserId();
         String query2 = "update ratings SET rating = ? WHERE movieId = ? AND userId = ?";
         String query3 = "insert into ratings(movieId, userId, rating) values (?, ?, ?)";
 
         try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement();
-             ResultSet rs = statement.executeQuery(query)
+             ResultSet rs = statement.executeQuery(query1)
         ) {
             if (rs.next()) {
                 try(PreparedStatement preparedStatement = connection.prepareStatement(query2)){
+                    Rating ratingFromDb = new Rating(rs.getInt(1), rs.getInt(2), rs.getInt(3));
                     preparedStatement.setInt(1, rating.getRating());
                     preparedStatement.setInt(2, rating.getMovieId());
                     preparedStatement.setInt(3, rating.getUserId());
                     preparedStatement.executeUpdate();
+                    auditLogger
+                            .auditChange(new Entity(
+                                    "rating.update",
+                                    String.valueOf(rating.getMovieId()),
+                                    ratingFromDb.toString(),
+                                    rating.toString()
+                            ));
                 }
             } else {
                 try(PreparedStatement preparedStatement = connection.prepareStatement(query3)){
@@ -45,6 +55,7 @@ public class RatingRepository {
                     preparedStatement.setInt(2, rating.getUserId());
                     preparedStatement.setInt(3, rating.getRating());
                     preparedStatement.executeUpdate();
+                    auditLogger.audit("Rating " + rating + " created.");
                 }
             }
         } catch (SQLException e) {
