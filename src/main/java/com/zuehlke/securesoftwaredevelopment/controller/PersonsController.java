@@ -67,7 +67,8 @@ public class PersonsController {
         if(!SecurityUtil.hasPermission("UPDATE_PERSON")){
             int currentUserId = SecurityUtil.getCurrentUser().getId();
             if(currentUserId != id){
-                throw new AccessDeniedException("Forbidden");
+                LOG.error("Access denied. User ID " + currentUserId + " does not have permission to update person details.");
+                throw new AccessDeniedException("Access denied.");
             }
         }
 
@@ -82,14 +83,15 @@ public class PersonsController {
             AccessDeniedException {
         String csrf = session.getAttribute("CSRF_TOKEN").toString();
         if (!csrf.equals(csrfToken)) {
-            throw new AccessDeniedException("Forbidden");
+            throw new AccessDeniedException("Access denied.");
         }
 
         if(!SecurityUtil.hasPermission("UPDATE_PERSON")){
             int currentUserId = SecurityUtil.getCurrentUser().getId();
             int personId = Integer.parseInt(person.getId());
             if(currentUserId != personId){
-                throw new AccessDeniedException("Forbidden");
+                LOG.error("Access denied. User ID " + currentUserId + " does not have permission to update person details.");
+                throw new AccessDeniedException("Access denied.");
             }
         }
         personRepository.update(person);

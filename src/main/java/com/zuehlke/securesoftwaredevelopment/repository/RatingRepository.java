@@ -48,7 +48,7 @@ public class RatingRepository {
                 }
             }
         } catch (SQLException e) {
-            LOG.error("Error: Updating rating for movie failed.");
+            LOG.warn("Failed to update rating for movie with ID " + rating.getMovieId() + ".", e);
         }
     }
 
@@ -64,7 +64,7 @@ public class RatingRepository {
                 }
             }
         } catch (SQLException e) {
-            LOG.error("Error: Fetching all ratings failed.");
+            LOG.warn("Failed to fetch all ratings.", e);
         }
         return ratingList;
     }

@@ -34,7 +34,7 @@ public class PersonRepository {
                 personList.add(createPersonFromResultSet(rs));
             }
         } catch (SQLException e) {
-            LOG.error("Error: Fetching persons failed.");
+            LOG.warn("Failed to fetch persons.", e);
         }
         return personList;
     }
@@ -69,7 +69,7 @@ public class PersonRepository {
                 }
             }
         } catch (SQLException e) {
-            LOG.error("Error: Getting person failed.");
+            LOG.warn("Failed to get person with ID " + personId + ".", e);
         }
 
         return null;
@@ -82,7 +82,7 @@ public class PersonRepository {
         ) {
             statement.executeUpdate(query);
         } catch (SQLException e) {
-            LOG.error("Error: Deleting person failed.");
+            LOG.warn("Failed to delete person with ID " + personId + ".", e);
         }
     }
 
@@ -109,7 +109,7 @@ public class PersonRepository {
             statement.setString(4, personUpdate.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
-            LOG.error("Error: Updating person failed.");
+            LOG.warn("Failed to update person with ID " + personUpdate.getId() + ".", e);
         }
     }
 }

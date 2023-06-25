@@ -35,7 +35,7 @@ public class HashedUserRepository {
             }
             }
         } catch (SQLException e) {
-            LOG.error("Error: Trying to find user failed.");
+            LOG.warn("Failed to fetch all genres.", e);
         }
         return null;
     }
@@ -49,7 +49,7 @@ public class HashedUserRepository {
 
             statement.executeUpdate();
         } catch (SQLException e) {
-            LOG.error("Error: Updating TOTP key for user failed.");
+            LOG.warn("Failed to update TOTP key for user with username " + username + ".", e);
         }
     }
 }

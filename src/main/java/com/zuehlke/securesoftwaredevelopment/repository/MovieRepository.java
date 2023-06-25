@@ -37,7 +37,7 @@ public class MovieRepository {
                 movieList.add(movie);
             }
         } catch (SQLException e) {
-            LOG.error("Error: Fetching all existing movies failed.");
+            LOG.warn("Failed to fetch all movies.", e);
         }
         return movieList;
     }
@@ -86,7 +86,7 @@ public class MovieRepository {
                 return movie;
             }
         } catch (SQLException e) {
-            LOG.error("Error: Fetching movie failed.");
+            LOG.warn("Failed to fetch movie with ID " + movieId + ".", e);
         }
 
         return null;
@@ -113,12 +113,12 @@ public class MovieRepository {
                         statement2.setInt(2, genre.getId());
                         statement2.executeUpdate();
                     } catch (SQLException e) {
-                        LOG.error("Error: Inserting new genres failed.");
+                        LOG.warn("Failed to insert genres.", e);
                     }
                 });
             }
         } catch (SQLException e) {
-            LOG.error("Error: Inserting new movie with title failed.");
+            LOG.warn("Failed to insert movie with title " + movie.getTitle() + ".", e);
         }
         return id;
     }
@@ -136,7 +136,7 @@ public class MovieRepository {
             statement.executeUpdate(query3);
             statement.executeUpdate(query4);
         } catch (SQLException e) {
-            LOG.error("Error: Deleting movie failed.");
+            LOG.warn("Failed to delete movie with ID " + movieId + ".", e);
         }
     }
 

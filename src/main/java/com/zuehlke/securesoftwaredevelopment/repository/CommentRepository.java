@@ -31,10 +31,10 @@ public class CommentRepository {
             preparedStatement.setInt(1, comment.getMovieId());
             preparedStatement.setInt(2, comment.getUserId());
             preparedStatement.setString(3, comment.getComment());
-            preparedStatement.execute();
+            preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-           LOG.error("Error: Comment creation failed.");
+            LOG.warn("Failed to create comment for movie " + comment.getMovieId() + " and user " + comment.getUserId() + ".", e);
         }
     }
 
@@ -51,7 +51,7 @@ public class CommentRepository {
             }
 
         } catch (SQLException e) {
-            LOG.error("Error: Fetching comments failed.");
+            LOG.warn("Failed to fetch comments for movie " + movieId + ".", e);
         }
         return commentList;
     }

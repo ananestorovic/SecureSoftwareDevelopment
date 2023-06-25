@@ -32,7 +32,7 @@ public class GenreRepository {
                 genreList.add(new Genre(rs.getInt(1), rs.getString(2)));
             }
         } catch (SQLException e) {
-            LOG.error("Error: Fetching all existing genres failed.");
+            LOG.warn("Failed to fetch all existing genres.", e);
         }
         return genreList;
     }

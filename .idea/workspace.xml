@@ -4,17 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7426b0dd-4e66-4785-9e7e-e97d54a4a898" name="Changes" comment="Implemented RATE_MOVIE permission">
+    <list default="true" id="7426b0dd-4e66-4785-9e7e-e97d54a4a898" name="Changes" comment="All necessary permissions are implemented">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/zuehlke/securesoftwaredevelopment/controller/PersonsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zuehlke/securesoftwaredevelopment/controller/PersonsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zuehlke/securesoftwaredevelopment/repository/CommentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zuehlke/securesoftwaredevelopment/repository/CommentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zuehlke/securesoftwaredevelopment/repository/GenreRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zuehlke/securesoftwaredevelopment/repository/GenreRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zuehlke/securesoftwaredevelopment/repository/HashedUserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zuehlke/securesoftwaredevelopment/repository/HashedUserRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/zuehlke/securesoftwaredevelopment/repository/MovieRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zuehlke/securesoftwaredevelopment/repository/MovieRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zuehlke/securesoftwaredevelopment/repository/PermissionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zuehlke/securesoftwaredevelopment/repository/PermissionRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/zuehlke/securesoftwaredevelopment/repository/PersonRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zuehlke/securesoftwaredevelopment/repository/PersonRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/movie.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/movie.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/zuehlke/securesoftwaredevelopment/controller/PersonsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zuehlke/securesoftwaredevelopment/controller/PersonsController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/zuehlke/securesoftwaredevelopment/controller/RatingsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zuehlke/securesoftwaredevelopment/controller/RatingsController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/zuehlke/securesoftwaredevelopment/repository/MovieRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zuehlke/securesoftwaredevelopment/repository/MovieRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/zuehlke/securesoftwaredevelopment/repository/PersonRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zuehlke/securesoftwaredevelopment/repository/PersonRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/movie.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/movie.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zuehlke/securesoftwaredevelopment/repository/RatingRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zuehlke/securesoftwaredevelopment/repository/RatingRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zuehlke/securesoftwaredevelopment/repository/RoleRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zuehlke/securesoftwaredevelopment/repository/RoleRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zuehlke/securesoftwaredevelopment/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zuehlke/securesoftwaredevelopment/repository/UserRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,7 +139,7 @@
       <workItem from="1681067169428" duration="1796000" />
       <workItem from="1681906802682" duration="1199000" />
       <workItem from="1685975743411" duration="635000" />
-      <workItem from="1687259664949" duration="22268000" />
+      <workItem from="1687259664949" duration="30987000" />
     </task>
     <task id="LOCAL-00001" summary="Init commit">
       <created>1670698325007</created>
@@ -224,7 +225,14 @@
       <option name="project" value="LOCAL" />
       <updated>1687275491843</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="All necessary permissions are implemented">
+      <created>1687380428796</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1687380428796</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -256,7 +264,8 @@
     <MESSAGE value="Implemented VIEW_PERSON permission" />
     <MESSAGE value="Implemented VIEW_MY_PROFILE permission" />
     <MESSAGE value="Implemented RATE_MOVIE permission" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented RATE_MOVIE permission" />
+    <MESSAGE value="All necessary permissions are implemented" />
+    <option name="LAST_COMMIT_MESSAGE" value="All necessary permissions are implemented" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

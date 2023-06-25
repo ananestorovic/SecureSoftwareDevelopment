@@ -33,7 +33,7 @@ public class UserRepository {
                 }
             }
         } catch (SQLException e) {
-            LOG.error("Error: Finding user by username failed.");
+            LOG.warn("Failed to find user with username " + username + ".", e);
         }
         return null;
     }
@@ -48,7 +48,7 @@ public class UserRepository {
                 return rs.next();
             }
         } catch (SQLException e) {
-            LOG.error("Error: Validating credentials for user failed.");
+            LOG.warn("Failed to validate credentials for user with username " + username + ".", e);
         }
         return false;
     }
@@ -60,7 +60,7 @@ public class UserRepository {
         ) {
             statement.executeUpdate(query);
         } catch (SQLException e) {
-            LOG.error("Error: Deleting user failed.");
+            LOG.warn("Failed to delete user with ID " + userId + ".", e);
         }
     }
 }
