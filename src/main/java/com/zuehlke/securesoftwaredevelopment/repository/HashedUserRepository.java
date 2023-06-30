@@ -35,7 +35,7 @@ public class HashedUserRepository {
             }
             }
         } catch (SQLException e) {
-            LOG.warn("Failed to fetch all genres.", e);
+            LOG.warn("Failed to find user with username " + username + ".", e);
         }
         return null;
     }
