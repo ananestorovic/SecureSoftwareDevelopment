@@ -47,6 +47,7 @@ public class MoviesController {
     }
 
     @GetMapping("/create-form")
+    @PreAuthorize("hasAuthority('CREATE_MOVIE')")
     public String CreateForm(Model model) {
         model.addAttribute("genres", genreRepository.getAll());
         return "create-form";
